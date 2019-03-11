@@ -41,39 +41,36 @@ def cardGraph_alt(self):
     # pie graph data
     div = self._cards()
     d = []
-    if self.col.schedVer() == 2:
-        for c, (t, col) in enumerate((
-            (_("Mature"), colMature),
-            (_("Young"), colYoung),
-            (_("Learn"), colLearn),
-            (_("Unseen"), colUnseen),
-            (_("Suspended+Buried"), colSusp))):
-            d.append(dict(data=div[c], label="%s: %s" % (t, div[c]), color=col))
-        # text data
-        i = []
-        (c, f) = self.col.db.first("""
-            select count(id), count(distinct nid) from cards
-            where did in %s """ % self._limit())
-        self._line(i, _("Total cards"), c)
-        self._line(i, _("Total notes"), f)
-        (low, avg, high) = self._factors()
-        if low:
-            self._line(i, _("Lowest ease"), "%d%%" % low)
-            self._line(i, _("Average ease"), "%d%%" % avg)
-            self._line(i, _("Highest ease"), "%d%%" % high)
-        info = "<table width=100%>" + "".join(i) + "</table><p>"
-        info += _('''\
-            A card's <i>ease</i> is the size of the next interval \
-            when you answer "good" on a review.''')
-        txt = self._title(_("Card Types"),
-                          _("The division of cards in your deck(s)."))
-        txt += "<table width=%d><tr><td>%s</td><td>%s</td></table>" % (
-            self.width,
-            self._graph(id="cards", data=d, type="pie"),
-            info)
-        return txt
-    else:
-        return OLDcardGraph(self)
+    for c, (t, col) in enumerate((
+        (_("Mature"), colMature),
+        (_("Young"), colYoung),
+        (_("Learn"), colLearn),
+        (_("Unseen"), colUnseen),
+        (_("Suspended+Buried"), colSusp))):
+        d.append(dict(data=div[c], label="%s: %s" % (t, div[c]), color=col))
+    # text data
+    i = []
+    (c, f) = self.col.db.first("""
+        select count(id), count(distinct nid) from cards
+        where did in %s """ % self._limit())
+    self._line(i, _("Total cards"), c)
+    self._line(i, _("Total notes"), f)
+    (low, avg, high) = self._factors()
+    if low:
+        self._line(i, _("Lowest ease"), "%d%%" % low)
+        self._line(i, _("Average ease"), "%d%%" % avg)
+        self._line(i, _("Highest ease"), "%d%%" % high)
+    info = "<table width=100%>" + "".join(i) + "</table><p>"
+    info += _('''\
+        A card's <i>ease</i> is the size of the next interval \
+        when you answer "good" on a review.''')
+    txt = self._title(_("Card Types"),
+                      _("The division of cards in your deck(s)."))
+    txt += "<table width=%d><tr><td>%s</td><td>%s</td></table>" % (
+        self.width,
+        self._graph(id="cards", data=d, type="pie"),
+        info)
+    return txt
 
 anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph, cardGraph_alt, pos="after")
 
@@ -81,7 +78,7 @@ anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph
 
 OLD_cards = anki.stats.CollectionStats._cards
 
-def _cards_alt(self):
+def _cards_alt(self, _old):
     if self.col.schedVer() == 2:
         return self.col.db.first("""
             select
@@ -102,4 +99,4 @@ def _cards_alt(self):
             from cards where did in %s""" % self._limit())
 
 
-anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="after")
+anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="around")
