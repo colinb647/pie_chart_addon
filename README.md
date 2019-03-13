@@ -9,11 +9,11 @@ As I use longer intervals while 'learning' compared to the default options, I've
 ___
 ### Compare the graph with this addon enabled:
 
-![picture alt](https://github.com/colinb647/pie_chart_addon/blob/working_branch/pic%20with%20addon.png)
+![picture alt](https://github.com/colinb647/pie_chart_addon/blob/master/pic%20with%20addon.png)
 
 ### Same info with the native divisions/colors:
 
-![picture alt](https://github.com/colinb647/pie_chart_addon/blob/working_branch/pic%20without%20addon.png)
+![picture alt](https://github.com/colinb647/pie_chart_addon/blob/master/pic%20without%20addon.png)
 
 ___
 
