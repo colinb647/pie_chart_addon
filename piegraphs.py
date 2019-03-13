@@ -17,6 +17,7 @@ import datetime
 import json
 import math
 import anki.stats
+import anki.collection
 from anki.hooks import wrap
 
 
@@ -33,32 +34,6 @@ colTime = "#770"
 colUnseen = "#000"
 colSusp = "#ff0"
 
-OLD_cards = anki.stats.CollectionStats._cards
-
-def _cards_alt(self):
-    if self.col.schedVer() == 2:
-        return self.col.db.first("""
-select
-sum(case when type=2 and ivl >= 21 then 1 else 0 end), -- mtr
-sum(case when type=2 and ivl < 21 then 1 else 0 end), -- yng
-sum(case when type in (1,3) then 1 else 0 end), -- lrn
-sum(case when type=0 then 1 else 0 end), -- new
-sum(case when queue<0 then 1 else 0 end) -- susp
-from cards where did in %s""" % self._limit())
-    else:
-        return self.col.db.first("""
-select
-sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
-sum(case when queue=2 and ivl < 21 then 1 else 0 end), -- yng
-sum(case when queue in (1,3) then 1 else 0 end), --lrn
-sum(case when queue=0 then 1 else 0 end), -- new
-sum(case when queue<0 then 1 else 0 end) -- susp
-from cards where did in %s""" % self._limit())
-
-
-anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="after")
-
-###############################################################################
 
 OLDcardGraph = anki.stats.CollectionStats.cardGraph
 
@@ -76,8 +51,8 @@ def cardGraph_alt(self):
     # text data
     i = []
     (c, f) = self.col.db.first("""
-select count(id), count(distinct nid) from cards
-where did in %s """ % self._limit())
+        select count(id), count(distinct nid) from cards
+        where did in %s """ % self._limit())
     self._line(i, _("Total cards"), c)
     self._line(i, _("Total notes"), f)
     (low, avg, high) = self._factors()
@@ -87,8 +62,8 @@ where did in %s """ % self._limit())
         self._line(i, _("Highest ease"), "%d%%" % high)
     info = "<table width=100%>" + "".join(i) + "</table><p>"
     info += _('''\
-A card's <i>ease</i> is the size of the next interval \
-when you answer "good" on a review.''')
+        A card's <i>ease</i> is the size of the next interval \
+        when you answer "good" on a review.''')
     txt = self._title(_("Card Types"),
                       _("The division of cards in your deck(s)."))
     txt += "<table width=%d><tr><td>%s</td><td>%s</td></table>" % (
@@ -99,5 +74,29 @@ when you answer "good" on a review.''')
 
 anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph, cardGraph_alt, pos="after")
 
+###############################################################################
 
-anki.stats.CollectionStats.cardGraph
+OLD_cards = anki.stats.CollectionStats._cards
+
+def _cards_alt(self, _old):
+    if self.col.schedVer() == 2:
+        return self.col.db.first("""
+            select
+            sum(case when type=2 and ivl >= 21 then 1 else 0 end), -- mtr
+            sum(case when type=2 and ivl < 21 then 1 else 0 end), -- yng
+            sum(case when type in (1,3) then 1 else 0 end), -- lrn
+            sum(case when type=0 then 1 else 0 end), -- new
+            sum(case when queue<0 then 1 else 0 end) -- susp
+            from cards where did in %s""" % self._limit())
+    else:
+        return self.col.db.first("""
+            select
+            sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
+            sum(case when queue=2 and ivl < 21 then 1 else 0 end), -- yng
+            sum(case when queue in (1,3) then 1 else 0 end), --lrn
+            sum(case when queue=0 then 1 else 0 end), -- new
+            sum(case when queue<0 then 1 else 0 end) -- susp
+            from cards where did in %s""" % self._limit())
+
+
+anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="around")
