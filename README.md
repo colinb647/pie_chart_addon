@@ -1,5 +1,7 @@
 # Stats Pie Chart with Distinct 'Learning' Section #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/286636126cc443a4b94a207fe8add72e)](https://app.codacy.com/app/colinb647/pie_chart_addon?utm_source=github.com&utm_medium=referral&utm_content=colinb647/pie_chart_addon&utm_campaign=Badge_Grade_Dashboard)
+
 **An Anki addon to alter pie chart color in the stats overview screen.**
 
 The stock version of Anki includes a pie chart at the end of the statistics overview screen, with the deck/collection divided into 'New', 'Suspended+Buried', 'Young+Learning', and 'Mature' sections.
