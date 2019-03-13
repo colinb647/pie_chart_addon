@@ -6,22 +6,15 @@ import anki.stats
 import anki.collection
 from anki.hooks import wrap
 
-
-defaultColor = "#0F0"
 colYoung = "#7c7"
 colMature = "#070"
-colCum = "rgba(0,0,0,0.9)"
 colLearn = "#00F"
 colRelearn = "#c00"
 colCram = "#ff0"
-colIvl = "#077"
-colHour = "#ccc"
-colTime = "#770"
-colUnseen = "#000"
 colSusp = "#ff0"
+colUnseen = "#000"
 
-
-OLDcardGraph = anki.stats.CollectionStats.cardGraph
+###############################################################################
 
 def cardGraph_alt(self):
     # pie graph data
@@ -62,8 +55,6 @@ anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph
 
 ###############################################################################
 
-OLD_cards = anki.stats.CollectionStats._cards
-
 def _cards_alt(self, _old):
     return self.col.db.first("""
         select
@@ -73,6 +64,5 @@ def _cards_alt(self, _old):
         sum(case when queue=0 then 1 else 0 end), -- new
         sum(case when queue<0 then 1 else 0 end) -- susp
         from cards where did in %s""" % self._limit())
-
 
 anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="around")
