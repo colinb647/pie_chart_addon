@@ -69,24 +69,14 @@ anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph
 OLD_cards = anki.stats.CollectionStats._cards
 
 def _cards_alt(self, _old):
-    if self.col.schedVer() == 2:
-        return self.col.db.first("""
-            select
-            sum(case when type=2 and ivl >= 21 then 1 else 0 end), -- mtr
-            sum(case when type=2 and ivl < 21 then 1 else 0 end), -- yng
-            sum(case when type in (1,3) then 1 else 0 end), -- lrn
-            sum(case when type=0 then 1 else 0 end), -- new
-            sum(case when queue<0 then 1 else 0 end) -- susp
-            from cards where did in %s""" % self._limit())
-    else:
-        return self.col.db.first("""
-            select
-            sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
-            sum(case when queue=2 and ivl < 21 then 1 else 0 end), -- yng
-            sum(case when queue in (1,3) then 1 else 0 end), --lrn
-            sum(case when queue=0 then 1 else 0 end), -- new
-            sum(case when queue<0 then 1 else 0 end) -- susp
-            from cards where did in %s""" % self._limit())
+    return self.col.db.first("""
+        select
+        sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
+        sum(case when queue=2 and ivl < 21 then 1 else 0 end), -- yng
+        sum(case when queue in (1,3) then 1 else 0 end), --lrn
+        sum(case when queue=0 then 1 else 0 end), -- new
+        sum(case when queue<0 then 1 else 0 end) -- susp
+        from cards where did in %s""" % self._limit())
 
 
 anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, _cards_alt, pos="around")
