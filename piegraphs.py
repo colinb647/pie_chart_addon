@@ -4,6 +4,7 @@
 
 import anki.stats
 import anki.collection
+from anki.lang import _, ngettext
 from anki.hooks import wrap
 
 colYoung = "#7c7"
