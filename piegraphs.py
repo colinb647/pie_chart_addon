@@ -23,7 +23,7 @@ OLD_cards = anki.stats.CollectionStats._cards
 
 ###############################################################################
 
-def cardGraph_lrn(self, _old):
+def cardGraph_lrn(self):
     # pie graph data
     div = self._cards()
     d = []
@@ -59,7 +59,7 @@ def cardGraph_lrn(self, _old):
     return txt
 
 
-def _cards_lrn(self, _old):
+def _cards_lrn(self):
     return self.col.db.first("""
         select
         sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
@@ -71,7 +71,7 @@ def _cards_lrn(self, _old):
 
 ###############################################################################
 
-def cardGraph_relrn(self, _old):
+def cardGraph_relrn(self):
     # pie graph data
     div = self._cards()
     d = []
@@ -106,7 +106,7 @@ def cardGraph_relrn(self, _old):
         info)
     return txt
 
-def _cards_relrn(self, _old):
+def _cards_relrn(self):
     if self.col.schedVer() == 1:
         return self.col.db.first("""
             select
@@ -128,7 +128,7 @@ def _cards_relrn(self, _old):
 
 ###############################################################################
 
-def cardGraph_lrn_relrn(self, _old):
+def cardGraph_lrn_relrn(self):
     # pie graph data
     div = self._cards()
     d = []
@@ -164,7 +164,7 @@ def cardGraph_lrn_relrn(self, _old):
         info)
     return txt
 
-def _cards_lrn_relrn(self, _old):
+def _cards_lrn_relrn(self):
     if self.col.schedVer() == 1:
         return self.col.db.first("""
             select
@@ -204,5 +204,5 @@ else:
     NEW_cards = OLD_cards
 
 
-anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph, NEWcardGraph, pos="around")
-anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, NEW_cards, pos="around")
+anki.stats.CollectionStats.cardGraph = wrap(anki.stats.CollectionStats.cardGraph, NEWcardGraph, pos="after")
+anki.stats.CollectionStats._cards = wrap(anki.stats.CollectionStats._cards, NEW_cards, pos="after")
