@@ -5,9 +5,7 @@
 import anki.stats
 import anki.collection
 from aqt import mw
-import aqt.main
-from aqt.stats import DeckStats
-from anki.lang import _, ngettext
+from anki.lang import _
 from anki.hooks import wrap
 
 config = mw.addonManager.getConfig(__name__)
