@@ -56,10 +56,11 @@ def cardGraph_lrn(self, _old):
         self.width,
         self._graph(id="cards", data=d, type="pie"),
         info)
-    return txt
+    return txt + _old(self)
 
 
 def _cards_lrn(self, _old):
+    _old(self)
     return self.col.db.first("""
         select
         sum(case when queue=2 and ivl >= 21 then 1 else 0 end), -- mtr
@@ -104,9 +105,10 @@ def cardGraph_relrn(self, _old):
         self.width,
         self._graph(id="cards", data=d, type="pie"),
         info)
-    return txt
+    return txt + _old(self)
 
 def _cards_relrn(self, _old):
+    _old(self)
     if self.col.schedVer() == 1:
         return self.col.db.first("""
             select
@@ -162,9 +164,10 @@ def cardGraph_lrn_relrn(self, _old):
         self.width,
         self._graph(id="cards", data=d, type="pie"),
         info)
-    return txt
+    return txt + _old(self)
 
 def _cards_lrn_relrn(self, _old):
+    _old(self)
     if self.col.schedVer() == 1:
         return self.col.db.first("""
             select
