@@ -1,4 +1,4 @@
-## Stats Pie Graph with Distinct 'Learning' and/or 'Relearning' Sections ##
+# Stats Pie Graph with Distinct 'Learning' and/or 'Relearning' Sections #
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/286636126cc443a4b94a207fe8add72e)](https://app.codacy.com/app/colinb647/pie_chart_addon?utm_source=github.com&utm_medium=referral&utm_content=colinb647/pie_chart_addon&utm_campaign=Badge_Grade_Dashboard)
 
@@ -10,13 +10,14 @@ Since I use longer intervals while 'learning' compared to the default options, I
 
 Notably, as of v1.1, this addon is **compatible with both v1 and v2 review scheduler versions!**
 
-### Development ###
-#### Version history ####
+## Development ##
 
--   **v1.1**: Adapted `piegraphs.py` functions (and created `config.md` and `config.json`) to allow user configuration via the addons manager. **_Compatible with both v1 and v2 scheduler versions._**
+### Version history ###
 
--   **v1.0.1**: minor formatting updates
--   **v1.0**: initial release
+- **v1.1**: Adapted `piegraphs.py` functions (and created `config.md` and `config.json`) to allow user configuration via the addons manager. **_Compatible with both v1 and v2 scheduler versions._**
+
+- **v1.0.1**: minor formatting updates
+- **v1.0**: initial release
 
 ---
 
@@ -36,11 +37,15 @@ Notably, as of v1.1, this addon is **compatible with both v1 and v2 review sched
 ![picture alt](https://github.com/colinb647/pie_chart_addon/blob/master/example_pics/learning_relearning.png)
 
 ---
+
 ### Installation ###
+
 #### Via the Addon Manager ###
+
 The addon number for install via the in-program app is **1828603731**. To see the addon page, visit [here](https://ankiweb.net/shared/info/1828603731).
 
 #### Manual Installation ####
+
 Create a folder in your respective addons folder (or clone this one), so that it contains **\_\_init\_\_.py** and piegraphs.py.
 
 **Do not put these in a subfolder**; i.e., it should be `.../addons_folder/newFolder/files.py`. The `meta.json` file should be created automatically by Anki after loading for the first time after install.
