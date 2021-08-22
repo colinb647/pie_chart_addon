@@ -1,5 +1,6 @@
 # Stats Pie Graph with Distinct 'Learning' and/or 'Relearning' Sections #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b22c684f3d754987a02e8b6e3c085624)](https://app.codacy.com/gh/colinb647/pie_chart_addon?utm_source=github.com&utm_medium=referral&utm_content=colinb647/pie_chart_addon&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/286636126cc443a4b94a207fe8add72e)](https://app.codacy.com/app/colinb647/pie_chart_addon?utm_source=github.com&utm_medium=referral&utm_content=colinb647/pie_chart_addon&utm_campaign=Badge_Grade_Dashboard)
 
 **An Anki addon to change the pie chart colors in the stats overview window.**
