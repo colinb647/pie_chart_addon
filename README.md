@@ -40,7 +40,7 @@ Notably, as of v1.1, this addon is **compatible with both v1 and v2 review sched
 
 ### Installation ###
 
-#### Via the Addon Manager ###
+#### Via the Addon Manager ####
 
 The addon number for install via the in-program app is **1828603731**. To see the addon page, visit [here](https://ankiweb.net/shared/info/1828603731).
 
